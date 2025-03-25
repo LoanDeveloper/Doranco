@@ -1,10 +1,11 @@
-list = [5,2,4,6,2,10]
+arr = [5,2,4,6,2,10]
 
-def bubble_sort(list):
-    for i in range(len(list)):
-        for j in range(len(list)-1):
-            if list[j] > list[j+1]:
-                list[j], list[j+1] = list[j+1], list[j]
-    return list
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:  
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]  
+    return arr
 
-print(bubble_sort(list))
+print(bubble_sort(arr))
