@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "generated_at": "2025-12-12T12:12:20.753923",
+    "pipeline_name": "Star Schema ETL Pipeline",
+    "version": "1.0.0"
+  },
+  "execution_summary": {
+    "status": "SUCCESS",
+    "log_lines": {
+      "info": 69,
+      "warning": 0,
+      "error": 6
+    },
+    "start_time": "2025-12-12 12:09:05,538",
+    "end_time": "2025-12-12 12:09:07,140",
+    "duration_seconds": 1.602
+  },
+  "data_sources": {
+    "total_files": 8,
+    "by_type": {
+      "csv": 5,
+      "excel": 2,
+      "json": 1
+    },
+    "total_records_extracted": 48000,
+    "file_details": [
+      {
+        "type": "csv",
+        "count": 5,
+        "example_files": [
+          "orders_part_1.csv",
+          "orders_part_2.csv"
+        ]
+      },
+      {
+        "type": "excel",
+        "count": 2,
+        "example_files": [
+          "orders_excel_1.xlsx",
+          "orders_excel_2.xlsx"
+        ]
+      },
+      {
+        "type": "json",
+        "count": 1,
+        "example_files": [
+          "orders.json"
+        ]
+      }
+    ]
+  },
+  "data_quality": {
+    "total_records": 48000,
+    "missing_values": 0,
+    "complete_records": 
