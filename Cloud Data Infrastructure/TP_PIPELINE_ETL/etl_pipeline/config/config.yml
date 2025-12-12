@@ -1,0 +1,20 @@
+# Configuration du pipeline ETL
+
+# Chemins des données
+data_lake:
+  raw: "etl_star_schema_dataset/etl_star_schema/data_lake/raw"
+  curated: "etl_star_schema_dataset/etl_star_schema/data_lake/curated"
+
+# Base de données Data Warehouse
+warehouse:
+  path: "etl_star_schema_dataset/etl_star_schema/warehouse.db"
+
+# Options de logging
+logging:
+  level: "INFO"
+  file: "etl_pipeline/logs/etl.log"
+
+# Options de traitement
+processing:
+  chunk_size: 1000
+  date_format: "YYYY-MM-DD"

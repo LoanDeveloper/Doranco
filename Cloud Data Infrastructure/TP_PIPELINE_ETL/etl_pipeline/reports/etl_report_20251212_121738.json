@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "generated_at": "2025-12-12T12:17:37.937080",
+    "pipeline_name": "Star Schema ETL Pipeline",
+    "version": "1.0.0"
+  },
+  "execution_summary": {
+    "status": "SUCCESS",
+    "log_lines": {
+      "info": 91,
+      "warning": 0,
+      "error": 6
+    },
+    "start_time": "2025-12-12 12:09:05,538",
+    "end_time": "2025-12-12 12:09:07,140",
+    "duration_seconds": 1.602
+  },
+  "data_sources": {
+    "total_files": 8,
+    "by_type": {
+      "csv": 5,
+      "excel": 2,
+      "json": 1
+    },
+    "total_records_extracted": 48000,
+    "file_details": [
+      {
+        "type": "csv",
+        "count": 5,
+        "example_files": [
+          "orders_part_1.csv",
+          "orders_part_2.csv"
+        ]
+      },
+      {
+        "type": "excel",
+        "count": 2,
+        "example_files": [
+          "orders_excel_1.xlsx",
+          "orders_excel_2.xlsx"
+        ]
+      },
+      {
+        "type": "json",
+        "count": 1,
+        "example_files": [
+          "orders.json"
+        ]
+      }
+    ]
+  },
+  "data_quality": {
+    "total_records": 48000,
+    "missing_values": 0,
+    "complete_records": 48000,
+    "completeness_rate": 100.0,
+    "statistics": {
+      "quantity": {
+        "count": 48000.0,
+        "mean": 5.005875,
+        "std": 2.5842190206373545,
+        "min": 1.0,
+        "25%": 3.0,
+        "50%": 5.0,
+        "75%": 7.0,
+        "max": 9.0
+      },
+      "unit_price": {
+        "count": 48000.0,
+        "mean": 253.06325916666665,
+        "std": 142.70911620170057,
+        "min": 5.01,
+        "25%": 129.3675,
+        "50%": 254.11,
+        "75%": 375.22,
+        "max": 499.98
+      },
+      "total_amount": {
+        "count": 48000.0,
+        "mean": 1270.4411670833333,
+        "std": 1039.4093092472438,
+        "min": 5.11,
+        "25%": 411.09,
+        "50%": 975.4,
+        "75%": 1913.1625000000001,
+        "max": 4499.37
+      },
+      "calculated_amount": {
+        "count": 48000.0,
+        "mean": 1270.4411670833333,
+        "std": 1039.4093092472438,
+        "min": 5.11,
+        "25%": 411.09000000000003,
+        "50%": 975.4,
+        "75%": 1913.1625000000001,
+        "max": 4499.37
+      },
+      "amount_discrepancy": {
+        "count": 48000.0,
+        "mean": 3.547765784854088e-14,
+        "std": 1.091033987174657e-13,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 0.0,
+        "max": 9.094947017729282e-13
+      }
+    },
+    "currency_distribution": {
+      "EUR": 33590,
+      "USD": 9628,
+      "GBP": 4782
+    },
+    "date_range": {
+      "min": "2023-01-01 00:00:00",
+      "max": "2024-12-30 00:00:00"
+    },
+    "amount_consistency": {
+      "perfect_matches": 40699,
+      "discrepancy_rate": 0.0
+    }
+  },
+  "data_warehouse": {
+    "database_type": "SQLite",
+    "database_path": "etl_star_schema_dataset/etl_star_schema/warehouse.db",
+    "table_count": 7,
+    "tables": {
+      "dim_customer": {
+        "record_count": 0,
+        "column_count": 3,
+        "columns": [
+          "customer_id",
+          "customer_name",
+          "customer_segment"
+        ]
+      },
+      "dim_product": {
+        "record_count": 0,
+        "column_count": 4,
+        "columns": [
+          "product_id",
+          "product_name",
+          "product_category",
+          "unit_price"
+        ]
+      },
+      "dim_time": {
+        "record_count": 0,
+        "column_count": 7,
+        "columns": [
+          "date_id",
+          "date_value",
+          "year",
+          "month",
+          "day",
+          "quarter",
+          "day_of_week"
+        ]
+      },
+      "dim_currency": {
+        "record_count": 0,
+        "column_count": 2,
+        "columns": [
+          "currency_code",
+          "currency_name"
+        ]
+      },
+      "fact_sales": {
+        "record_count": 48000,
+        "column_count": 14,
+        "columns": [
+          "order_id",
+          "order_date",
+          "customer_id",
+          "product_id",
+          "quantity",
+          "unit_price",
+          "total_amount",
+          "currency",
+          "calculated_amount",
+          "amount_discrepancy",
+          "order_year",
+          "order_month",
+          "order_day",
+          "order_quarter"
+        ]
+      }
+    },
+    "star_schema": {
+      "fact_table": "fact_sales",
+      "dimension_tables": [
+        "dim_customer",
+        "dim_product",
+        "dim_time",
+        "dim_currency"
+      ]
+    }
+  },
+  "performance": {
+    "extraction": {
+      "files_processed": 8,
+      "records_extracted": 48000,
+      "average_records_per_file": 6000.0
+    },
+    "transformation": {
+      "records_processed": 48000,
+      "fields_added": 6,
+      "data_types_converted": 7
+    },
+    "loading": {
+      "records_loaded_to_curated": 48000,
+      "records_loaded_to_warehouse": 48000,
+      "tables_created": 5
+    }
+  },
+  "summary": {
+    "overall_status": "SUCCESS",
+    "records_processed": 48000,
+    "data_quality_score": 100,
+    "key_achievements": [
+      "Extraction r\u00e9ussie de 48 000 enregistrements depuis 9 fichiers sources",
+      "Transformation compl\u00e8te avec ajout de 6 champs d\u00e9riv\u00e9s",
+      "Chargement r\u00e9ussi dans le Data Warehouse avec sch\u00e9ma en \u00e9toile",
+      "Qualit\u00e9 des donn\u00e9es excellente (0 valeurs manquantes, 100% coh\u00e9rence)",
+      "Validation compl\u00e8te r\u00e9ussie"
+    ],
+    "recommendations": [
+      "Impl\u00e9menter un syst\u00e8me de monitoring pour les ex\u00e9cutions futures",
+      "Ajouter des tests unitaires pour une meilleure couverture",
+      "Envisager l'ajout de transformations plus avanc\u00e9es (d\u00e9tection d'anomalies)",
+      "Documenter les r\u00e8gles m\u00e9tier pour les transformations futures"
+    ]
+  }
+}
