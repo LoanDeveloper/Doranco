@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeFactory - Benchmarking IA Vision Ordinateur</title>
+    <style>
+        :root {
+            --font-family-display: Arial, sans-serif;
+            --font-weight-display: 600;
+            --font-family-content: Arial, sans-serif;
+            --font-weight-content: 400;
+            --font-size-content: 16px;
+            --line-height-content: 1.4;
+        }
+
+        body.theme-dark {
+            --color-bg-base: #0f172a;
+            --color-bg-elevated: #020617;
+            --color-bg-surface: #1e293b;
+            --color-bg-muted: #334155;
+            --color-text-primary: #f1f5f9;
+            --color-text-secondary: #cbd5e1;
+            --color-text-muted: #94a3b8;
+            --color-text-accent: #38bdf8;
+            --color-primary: #38bdf8;
+            --color-primary-foreground: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-content);
+            font-weight: var(--font-weight-content);
+            font-size: var(--font-size-content);
+            line-height: var(--line-height-content);
+            overflow-x: hidden;
+        }
+
+        .slide {
+            width: 960px;
+            height: 540px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .row { flex-direction: row; }
+        .col { flex-direction: column; }
+        .center {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .space-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .items-end { align-items: flex-end; }
+        .fill-width { flex: 1; }
+        .fill-height { flex: 1; display: flex; flex-direction: column; }
+
+        .gap-sm { gap: 0.5rem; }
+        .gap-md { gap: 1rem; }
+        .gap-lg { gap: 1.5rem; }
+        .gap-xl { gap: 2rem; }
+
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .p-12 { padding: 3rem; }
+        .p-16 { padding: 4rem; }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-12 { margin-bottom: 3rem; }
+
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-display);
+            font-weight: var(--font-weight-display);
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.25rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+
+        .text-6xl { font-size: 3.75rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-sm { font-size: 0.875rem; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .text-center { text-align: center; }
+        .opacity-90 { opacity: 0.9; }
+
+        ul, ol {
+            margin-left: 2rem;
+            line-height: 1.8;
+        }
+
+        li { margin-bottom: 0.75rem; }
+        li:last-child { margin-bottom: 0; }
+
+        .card-rect {
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-green { background-color: #10b981; color: #0f172a; }
+        .badge-red { background-color: #ef4444; color: #f1f5f9; }
+        .badge-yellow { background-color: #f59e0b; color: #0f172a; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        td, th {
+            padding: 0.6rem;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body class="theme-dark">
+
+<!-- SLIDE 1: TITRE -->
+<section class="slide p-16 col center" style="background-color: #020617; color: #f1f5f9;">
+    <h1 class="text-6xl mb-4" style="color: #38bdf8;">SafeFactory</h1>
+    <p class="text-2xl mb-8" style="color: #cbd5e1;">Vision Ordinateur pour la Sécurité</p>
+    <p class="text-lg" style="color: #cbd5e1;">Détection automatique EPI & Intrusions</p>
+    <p class="text-sm mt-8" style="color: #94a3b8;">Benchmarking IA • Usine Métallurgique • Jan 2026</p>
+</section>
+
+<!-- SLIDE 2: CONTEXTE & OBJECTIF -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Contexte & Objectif</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>Enjeu</strong>: Détecter automatiquement port d'EPI (casque, gilet jaune, gants)</li>
+            <li><strong>Défi 1</strong>: Temps réel (latence &lt;100ms) + Edge Computing (sans internet)</li>
+            <li><strong>Défi 2</strong>: Caméras RTSP anciennes = contrainte matériel</li>
+            <li><strong>Défi 3</strong>: GDPR + Privacy = zéro stockage identité, anonymisation</li>
+            <li><strong>Approche</strong>: Edge IA + Floutage visages automatique (Privacy by Design)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 3: MODÈLES COMPARÉS -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Modèles Candidats</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>YOLOv11</strong>: 175 FPS, 47.9 mAP, 18.9 MB <span class="badge badge-green">EDGE READY</span></li>
+            <li><strong>YOLOv10</strong>: 159 FPS, 46.3 mAP, architecture NMS-free</li>
+            <li><strong>YOLOv8</strong>: 146 FPS, 44.7 mAP, référence stabilité</li>
+            <li><strong>AWS Rekognition</strong>: Cloud, 87% accuracy, ~200ms latence, $2-3k/mois</li>
+            <li><strong>Google Vertex AI</strong>: Cloud, 89% accuracy, 180ms latence</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 4: ARCHITECTURE YOLO -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Architecture YOLOv11</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>Backbone</strong>: CSPDarknet + Depthwise Separable Conv (efficace edge)</li>
+            <li><strong>Neck</strong>: PANv2 (fusion multi-échelle) pour petits objets EPI</li>
+            <li><strong>Head</strong>: Découpled (classification ≠ régression) + Attention mechanisms</li>
+            <li><strong>Fonction perte</strong>: DFL (Distribution Focal Loss) + CIoU + Balanced weights</li>
+            <li><strong>Anti-overfitting</strong>: Mixup, Cutmix, Label smoothing, Weight decay</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 5: MÉTRIQUES ÉVALUATION -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Métriques d'Évaluation</h2>
+    <div class="fill-height">
+        <table style="color: #cbd5e1;">
+            <tr style="background-color: #1e293b;">
+                <th>Métrique</th>
+                <th>Cible SafeFactory</th>
+                <th>Importance</th>
+            </tr>
+            <tr>
+                <td>mAP@50 (Accuracy)</td>
+                <td>&gt;90%</td>
+                <td>Détection juste</td>
+            </tr>
+            <tr>
+                <td>Recall (Sensibilité)</td>
+                <td>&gt;95%</td>
+                <td><strong>CRITIQUE</strong>: zéro faux négatif EPI</td>
+            </tr>
+            <tr>
+                <td>FPS (Latence)</td>
+                <td>&gt;25 FPS (&lt;40ms)</td>
+                <td>Temps réel</td>
+            </tr>
+            <tr>
+                <td>Robustesse (Low-light)</td>
+                <td>&gt;85% accuracy sombre</td>
+                <td>Usine industrielle</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- SLIDE 6: DONNÉES D'ENTRAÎNEMENT -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Volumétrie Données</h2>
+    <div class="two-column fill-height">
+        <div style="background-color: #1e293b; padding: 1.5rem;">
+            <h3 class="mb-4" style="color: #38bdf8;">Datasets Publics</h3>
+            <ul class="text-lg" style="color: #cbd5e1;">
+                <li>PPE Detection (Kaggle): 7,000 img</li>
+                <li>Construction Safety: 12,000 img</li>
+                <li>Hard Hat Dataset: 4,000 img</li>
+                <li><strong>Total</strong>: 50,000+ images</li>
+            </ul>
+        </div>
+        <div style="background-color: #1e293b; padding: 1.5rem;">
+            <h3 class="mb-4" style="color: #38bdf8;">Pour SafeFactory</h3>
+            <ul class="text-lg" style="color: #cbd5e1;">
+                <li>Données site réel: 3-5k images</li>
+                <li>Conditions usine: ombre, poussière</li>
+                <li>Finetuning YOLOv11: 2-4h GPU</li>
+                <li>Résultat: mAP 92-94%</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 7: SOLUTION GOLD VS REPLI -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Solutions Recommandées</h2>
+    <div class="two-column fill-height">
+        <div style="background-color: #10b981; color: #0f172a; padding: 1.5rem;">
+            <h3 class="mb-4 font-bold">🏆 GOLD: YOLOv11 + Edge</h3>
+            <ul class="text-lg">
+                <li>Jetson Orin Nano (300€)</li>
+                <li>Latence: 50-60ms</li>
+                <li>Accuracy: 92-94%</li>
+                <li>Coût/an: 1,500€</li>
+                <li>Privacy: ✅ Compliant</li>
+            </ul>
+        </div>
+        <div style="background-color: #f59e0b; color: #0f172a; padding: 1.5rem;">
+            <h3 class="mb-4 font-bold">📌 REPLI: YOLOv8 + CPU</h3>
+            <ul class="text-lg">
+                <li>Server x86 (800€)</li>
+                <li>Latence: 80-100ms</li>
+                <li>Accuracy: 90-92%</li>
+                <li>Coût/an: 1,200€</li>
+                <li>Privacy: ✅ Compliant</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8: ARCHITECTURE SAFEFACTORY -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Pipeline Technologique</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>1. Input</strong>: Caméras RTSP existantes (8 caméras usine)</li>
+            <li><strong>2. Processing</strong>: Edge Device (Jetson) → YOLOv11 quantized (int8)</li>
+            <li><strong>3. Privacy</strong>: Floutage visages instantané (DeepPrivacy)</li>
+            <li><strong>4. Rules</strong>: Moteur règles EPI (casque=oui, gilet=oui, ...)</li>
+            <li><strong>5. Output</strong>: Alertes locales + Dashboard + Cloud (async 24h)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 9: GDPR & PRIVACY BY DESIGN -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Conformité GDPR</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>Données stockées</strong>: Alertes seulement (30j), ZÉRO vidéo</li>
+            <li><strong>Identité</strong>: Jamais stockée, jamais transmise</li>
+            <li><strong>Visages</strong>: Automatiquement floutés à la source</li>
+            <li><strong>Base légale</strong>: Santé &amp; sécurité (Art. 6.1.c, 9.2.h GDPR)</li>
+            <li><strong>Consentement</strong>: Information + accord comité social</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 10: COMPARAISON CLOUD VS EDGE -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Cloud vs Edge: Trade-offs</h2>
+    <div class="fill-height">
+        <table style="color: #cbd5e1; font-size: 0.9rem;">
+            <tr style="background-color: #1e293b;">
+                <th>Critère</th>
+                <th>AWS Rekognition</th>
+                <th>YOLOv11 Edge</th>
+            </tr>
+            <tr>
+                <td><strong>Latence</strong></td>
+                <td>200-300ms</td>
+                <td>50-60ms ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Coût mensuel</strong></td>
+                <td>2,000-3,000€</td>
+                <td>100€ ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Dépend internet</strong></td>
+                <td>OUI ❌</td>
+                <td>NON ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Stockage données</strong></td>
+                <td>OUI (risque) ❌</td>
+                <td>NON (privacy) ✅</td>
+            </tr>
+            <tr>
+                <td><strong>Setup</strong></td>
+                <td>API simple</td>
+                <td>Dev 2-3 semaines</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- SLIDE 11: FREINS & OBJECTIONS -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Objections & Solutions</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>❌ "C'est de la surveillance"</strong><br/>✅ Démo: système enregistre JUSTE "casque oui/non", zéro photo identité</li>
+            <li><strong>❌ "Vous allez chronométrer nos pauses"</strong><br/>✅ Dashboard = alertes sécurité uniquement, zéro tracking position</li>
+            <li><strong>❌ "Vieilles caméras non compatibles"</strong><br/>✅ RTSP standard sur tous appareils, nous gérons la conversion</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 12: RISQUES IDENTIFIÉS -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Matrice Risques (3 scénarios)</h2>
+    <div class="fill-height">
+        <table style="color: #cbd5e1; font-size: 0.85rem;">
+            <tr style="background-color: #1e293b;">
+                <th>Risque</th>
+                <th>Proba</th>
+                <th>Impact</th>
+                <th>Mitigation</th>
+            </tr>
+            <tr>
+                <td><strong>Faux négatifs EPI</strong></td>
+                <td><span class="badge badge-red">Forte</span></td>
+                <td><span class="badge badge-red">Critique</span></td>
+                <td>Modèles redondants + QA</td>
+            </tr>
+            <tr>
+                <td><strong>Préoccupations Privacy</strong></td>
+                <td><span class="badge badge-yellow">Moyenne</span></td>
+                <td><span class="badge badge-yellow">Majeur</span></td>
+                <td>Audit AIPD + Accord comité</td>
+            </tr>
+            <tr>
+                <td><strong>Défaillance Edge/réseau</strong></td>
+                <td><span class="badge badge-yellow">Faible-Moy</span></td>
+                <td><span class="badge badge-yellow">Majeur</span></td>
+                <td>Redundancy + Fallback local</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- SLIDE 13: PLAN DÉPLOIEMENT -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Timeline Déploiement</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>Semaine 1-2</strong>: Collecte 3,000 images site + annotation (LabelImg)</li>
+            <li><strong>Semaine 3-4</strong>: Entraînement YOLOv11 + optimisation (4h GPU)</li>
+            <li><strong>Semaine 5-6</strong>: Déploiement Jetson + tests A/B (1 semaine)</li>
+            <li><strong>Semaine 7-8</strong>: Déploiement production progressive</li>
+            <li><strong>Semaine 9-10</strong>: Monitoring + ajustements</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 14: COÛTS DÉTAILLÉS -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Budget 3 ans</h2>
+    <div class="fill-height">
+        <table style="color: #cbd5e1; font-size: 0.9rem;">
+            <tr style="background-color: #1e293b;">
+                <th>Composant</th>
+                <th>Coût</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td>Jetson Orin Nano x2</td>
+                <td>600€</td>
+                <td>Redundancy 4 flux chacun</td>
+            </tr>
+            <tr>
+                <td>Server CPU backup</td>
+                <td>800€</td>
+                <td>8 cores, 16GB RAM</td>
+            </tr>
+            <tr>
+                <td>Dev + intégration</td>
+                <td>3,000€</td>
+                <td>3-4 semaines</td>
+            </tr>
+            <tr>
+                <td>Maintenance/an</td>
+                <td>600€</td>
+                <td>Support + updates</td>
+            </tr>
+            <tr style="background-color: #1e293b;">
+                <td><strong>TOTAL Année 1</strong></td>
+                <td><strong>5,000€</strong></td>
+                <td>vs 24,000€ cloud/an</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- SLIDE 15: PERSPECTIVES FUTURES -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Roadmap 2026-2027</h2>
+    <div class="fill-height">
+        <ul class="text-lg" style="color: #cbd5e1;">
+            <li><strong>Q2 2026</strong>: Multi-modalité (fusion détection + IMU pour chutes)</li>
+            <li><strong>Q3 2026</strong>: Détection comportement (posture sécurisée)</li>
+            <li><strong>Q4 2026</strong>: Prédictif (anomalies avant accident)</li>
+            <li><strong>2027</strong>: YOLO-World zéro-shot (nouveau EPI sans réentraînement)</li>
+            <li><strong>2027</strong>: Explainability (XAI: pourquoi alerte?)</li>
+        </ul>
+    </div>
+</section>
+
+<!-- SLIDE 16: CONCLUSION -->
+<section class="slide p-16 col center" style="background-color: #020617; color: #f1f5f9;">
+    <h2 class="mb-8" style="color: #38bdf8;">Objectif Zéro Accident</h2>
+    <p class="text-xl mb-6" style="color: #cbd5e1;">YOLOv11 Edge + Privacy by Design</p>
+    <p class="text-lg" style="color: #94a3b8;">✅ Temps réel • ✅ Local • ✅ GDPR • ✅ Économique</p>
+    <p class="text-sm mt-8" style="color: #94a3b8;">Questions & Défis ?</p>
+</section>
+
+<!-- SLIDE 17: SOURCES & REFERENCES -->
+<section class="slide p-16 col" style="background-color: #0f172a; color: #f1f5f9;">
+    <h2 class="mb-6" style="color: #38bdf8;">Sources Fiables</h2>
+    <div class="fill-height">
+        <ul class="text-sm" style="color: #cbd5e1;">
+            <li><strong>IEEE Xplore</strong>: Real-Time Object Detection YOLO Framework (2025)</li>
+            <li><strong>Ultralytics</strong>: YOLOv11 official documentation &amp; benchmarks</li>
+            <li><strong>arXiv</strong>: YOLO-World architecture paper (THU-MIG 2025)</li>
+            <li><strong>Kaggle</strong>: PPE Detection datasets + community benchmarks</li>
+            <li><strong>Clarifai/Roboflow</strong>: Computer vision best practices 2025</li>
+            <li><strong>NIST/EC</strong>: AI Act &amp; GDPR compliance frameworks</li>
+            <li><strong>NIH/PMC</strong>: Workplace safety AI systems research</li>
+        </ul>
+    </div>
+</section>
+
+</body>
+</html>

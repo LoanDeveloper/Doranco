@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeFactory - Vision par Ordinateur pour Sécurité Industrielle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            width: 960px;
+            height: 540px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.title {
+            background: linear-gradient(135deg, #0284c7 0%, #1e40af 100%);
+            color: #ffffff;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+        }
+
+        .slide.content {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            flex-direction: column;
+            padding: 4rem;
+            justify-content: flex-start;
+        }
+
+        .slide.dark-bg {
+            background-color: #020617;
+        }
+
+        .slide.light-section {
+            background-color: #1e293b;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+            color: #38bdf8;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0284c7;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #e0f2fe;
+            margin-bottom: 2rem;
+        }
+
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .list-item {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .list-item::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .column {
+            flex: 1;
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            color: #cbd5e1;
+        }
+
+        .comparison-table tr {
+            border-bottom: 1px solid #334155;
+        }
+
+        .comparison-table td {
+            padding: 0.5rem;
+        }
+
+        .comparison-table th {
+            background-color: #334155;
+            color: #38bdf8;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .metric {
+            background-color: #1e293b;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 4px solid #0284c7;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .risk-box {
+            background-color: #7c2d12;
+            border-left: 4px solid #ea580c;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .risk-high {
+            border-left-color: #dc2626;
+            background-color: #5f1212;
+        }
+
+        .success-box {
+            background-color: #0c4a2a;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .highlight {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #38bdf8;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        .transition-slide {
+            background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%);
+            color: #ffffff;
+            font-size: 2.5rem;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Title -->
+    <section class="slide title dark-bg">
+        <h1>SafeFactory</h1>
+        <p class="subtitle">Vision par Ordinateur pour la Sécurité Industrielle</p>
+        <p style="font-size: 1rem; color: #cbd5e1; margin-top: 3rem;">Étude de Cas: Détection d'EPI en Usine Métallurgique</p>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 1rem;">Benchmark IA - YOLOv10 vs Cloud Solutions</p>
+    </section>
+
+    <!-- SLIDE 2: Objectifs -->
+    <section class="slide content">
+        <h2>Objectifs de SafeFactory</h2>
+        <div class="content-list">
+            <div class="list-item"><span class="highlight">Détection Temps Réel</span> : Casque, Gilet, Gants, Chaussures de sécurité</div>
+            <div class="list-item"><span class="highlight">Edge Computing</span> : Sans dépendance Internet stable</div>
+            <div class="list-item"><span class="highlight">Respect GDPR</span> : Privacy by Design, floutage facial automatique</div>
+            <div class="list-item"><span class="highlight">Compatibilité Légacy</span> : Caméras anciennes en RTSP</div>
+            <div class="list-item"><span class="highlight">Zéro Accident</span> : Alertes superviseurs, pas surveillance des pauses</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: État de l'Art -->
+    <section class="slide content">
+        <h2>Historique du Domaine (2018-2026)</h2>
+        <div class="content-list">
+            <div class="list-item"><strong>2018-2020</strong> : Surveillance manuelle ou règles simples (30-50% accuracy)</div>
+            <div class="list-item"><strong>2020-2022</strong> : Breakthrough YOLOv5/v7 (mAP50 ~85-90%)</div>
+            <div class="list-item"><strong>2023-2024</strong> : YOLOv8/v9 avec Transformer backbones et Reversible Functions</div>
+            <div class="list-item"><strong>2025-2026</strong> : YOLOv10+ avec mAP50 98%+, face blur GDPR-natif</div>
+        </div>
+        <div style="background-color: #1e293b; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
+            <p style="color: #38bdf8; font-weight: bold;">💡 Enjeu Clé :</p>
+            <p style="color: #cbd5e1;">Passer de "surveillance des travailleurs" à "prévention d'accidents" dans les esprits</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: Comparaison Solutions Cloud -->
+    <section class="slide content light-section">
+        <h2>Comparaison: Cloud Solutions (AWS, Google, Azure)</h2>
+        <table class="comparison-table" style="font-size: 0.9rem;">
+            <tr>
+                <th style="width: 20%;">Critère</th>
+                <th>AWS Rekognition</th>
+                <th>Google Vertex AI</th>
+                <th>Azure Vision</th>
+            </tr>
+            <tr>
+                <td><strong>mAP PPE</strong></td>
+                <td style="color: #fbbf24;">85% (helmets)</td>
+                <td>50% (helmets)</td>
+                <td style="color: #dc2626;">0% (gants/casques)</td>
+            </tr>
+            <tr>
+                <td><strong>Latence</strong></td>
+                <td>150-300ms</td>
+                <td>150-500ms</td>
+                <td>200-400ms</td>
+            </tr>
+            <tr>
+                <td><strong>Internet Requis</strong></td>
+                <td style="color: #dc2626;">OUI</td>
+                <td style="color: #dc2626;">OUI</td>
+                <td style="color: #dc2626;">OUI</td>
+            </tr>
+            <tr>
+                <td><strong>Privacy by Design</strong></td>
+                <td>Partial</td>
+                <td>Partial</td>
+                <td>Partial</td>
+            </tr>
+        </table>
+        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 1rem;">⚠️ Problème: dépendance cloud + latence réseau inacceptable pour usine</p>
+    </section>
+
+    <!-- SLIDE 5: Solution GOLD -->
+    <section class="slide content dark-bg">
+        <h2>Solution GOLD: YOLOv10 + Edge Local</h2>
+        <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+            <div style="flex: 1;">
+                <div class="metric">
+                    <div class="metric-label">Performance (mAP@0.50)</div>
+                    <div class="metric-value">98.4%</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Latence</div>
+                    <div class="metric-value">15-30ms</div>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div class="metric">
+                    <div class="metric-label">Internet Requis</div>
+                    <div class="metric-value" style="color: #10b981;">NON ✓</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Privacy GDPR</div>
+                    <div class="metric-value" style="color: #10b981;">Natif ✓</div>
+                </div>
+            </div>
+        </div>
+        <div class="success-box" style="margin-top: 1rem;">
+            <strong>Stack Technique :</strong> NVIDIA Jetson Xavier + Python + TensorRT + OpenCV (face blur)
+        </div>
+    </section>
+
+    <!-- SLIDE 6: Architecture YOLOv10 -->
+    <section class="slide content">
+        <h2>Architecture YOLOv10 - Détails</h2>
+        <div class="code-block" style="font-size: 0.8rem; color: #10b981;">
+Backbone: RepViT / EfficientNet (137M params)
+  ↓ Stage 1-5: Feature Extraction multi-scale
+Neck: PAN (Path Aggregation Network)
+  ↓ Multi-scale feature fusion (80×60, 40×30, 20×15)
+Head: Decoupled Detection
+  ├─ Classification: person/helmet/vest/gants/boots
+  ├─ Bbox Regression: x,y,w,h
+  └─ Objectness: confidence score
+        </div>
+        <div style="margin-top: 1rem; color: #cbd5e1;">
+            <strong>Innovation clé YOLOv10 :</strong> Loss function IoU + Focal Loss (gère imbalance classes)
+        </div>
+    </section>
+
+    <!-- SLIDE 7: Datasets -->
+    <section class="slide content light-section">
+        <h2>Datasets Disponibles</h2>
+        <div class="content-list">
+            <div class="list-item">
+                <strong>SH17</strong> : 8,099 images, 75,994 instances, 17 classes (Mining/Construction)
+            </div>
+            <div class="list-item">
+                <strong>Construction-PPE</strong> : 1,500+ images, 11 classes, Ultralytics YOLO format
+            </div>
+            <div class="list-item">
+                <strong>Kaggle PPE Datasets</strong> : Diverses sources 500-5000 images
+            </div>
+        </div>
+        <div style="background-color: #334155; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
+            <strong>Data Augmentation pour Usine :</strong>
+            <p style="font-size: 0.9rem; color: #cbd5e1; margin-top: 0.5rem;">Mosaic mixing + HSV shift (faible luminosité) + Gaussian blur (caméras legacy)</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: Transition -->
+    <section class="slide transition-slide">
+        <div style="font-size: 2rem;">⚠️ RISQUES & MITIGATION</div>
+    </section>
+
+    <!-- SLIDE 9: Risque 1 -->
+    <section class="slide content dark-bg">
+        <h2>Risque 1: Faux Négatifs (Worker non-détecté)</h2>
+        <table class="comparison-table">
+            <tr>
+                <th>Paramètre</th>
+                <th>Valeur</th>
+            </tr>
+            <tr>
+                <td>Probabilité</td>
+                <td style="color: #fbbf24;">FORTE (5-10% extreme conditions)</td>
+            </tr>
+            <tr>
+                <td>Impact</td>
+                <td style="color: #dc2626;">CRITIQUE (accident possible)</td>
+            </tr>
+            <tr>
+                <td>Nature</td>
+                <td>Technique + Humain</td>
+            </tr>
+        </table>
+        <div class="metric" style="margin-top: 1rem;">
+            <strong>Mitigation :</strong>
+            <p style="color: #cbd5e1; margin-top: 0.5rem;">✓ Ensemble learning (YOLOv10 + YOLOv9 dual)</p>
+            <p style="color: #cbd5e1;">✓ Audit manuel 10% caméras (weekly)</p>
+            <p style="color: #cbd5e1;">✓ Formation supervisors (zero-tolerance)</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: Risque 2 GDPR -->
+    <section class="slide content">
+        <h2>Risque 2: Violation GDPR (Identités tracées)</h2>
+        <div class="risk-box risk-high">
+            <strong>Probabilité:</strong> FORTE | <strong>Impact:</strong> CRITIQUE (€20M fine CNIL)
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.95rem;">
+            <p style="color: #10b981; font-weight: bold;">✓ Mitigation via Privacy by Design :</p>
+            <div class="content-list" style="margin-top: 0.5rem;">
+                <div class="list-item">Face blurring AVANT YOLOv10 (pas de raw frames stored)</div>
+                <div class="list-item">Logs: timestamp + zone, NO identité (person_id=NULL)</div>
+                <div class="list-item">Rétention: 24h frames auto-delete, 90j alerts (audit)</div>
+                <div class="list-item">DPIA externe validée + DPO impliqué</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: Risque 3 Résistance -->
+    <section class="slide content light-section">
+        <h2>Risque 3: Résistance Organisationnelle</h2>
+        <p style="color: #cbd5e1; margin-bottom: 1rem;"><strong>Peur :</strong> "Et si IA tracks nos pauses ?"</p>
+        <div class="metric">
+            <p style="color: #fbbf24; font-weight: bold;">Pitch stratégique:</p>
+            <p style="color: #cbd5e1; margin-top: 0.5rem;">"Objectif Zéro Accident" (NOT "Surveillance des pauses")</p>
+        </div>
+        <div class="content-list" style="margin-top: 1rem; font-size: 0.9rem;">
+            <div class="list-item">Démo technique: "Voir que 0 identité stockée"</div>
+            <div class="list-item">Co-design avec représentants syndicalistes</div>
+            <div class="list-item">Pilot 1 mois zone test (opt-in workers)</div>
+            <div class="list-item">Report anonyme: "4 violations zone A" (pas noms)</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: Conformité GDPR -->
+    <section class="slide content dark-bg">
+        <h2>Enjeux Éthiques & GDPR</h2>
+        <div class="content-list">
+            <div class="list-item"><strong>Base Légale :</strong> Article 6(1)(f) GDPR - "Legitimate Interest" (safety workers)</div>
+            <div class="list-item"><strong>Transparency :</strong> Information workers, affichage caméras</div>
+            <div class="list-item"><strong>Data Minimization :</strong> Seules données sécurité collectées</div>
+            <div class="list-item"><strong>Purpose Limitation :</strong> PAS d'utilisation pour chronométrage/productivité</div>
+            <div class="list-item"><strong>Storage Limitation :</strong> Purge automatique (24h frames, 90j alerts)</div>
+        </div>
+        <p style="color: #38bdf8; margin-top: 1rem; font-size: 0.95rem;">✓ Pas de "surveillance de masse" si data minimization + face blur</p>
+    </section>
+
+    <!-- SLIDE 13: Solution Repli -->
+    <section class="slide content">
+        <h2>Solution DE REPLI: AWS Rekognition</h2>
+        <p style="color: #cbd5e1; margin-bottom: 1rem;"><strong>Quand l'utiliser :</strong> Budget limité infra, expertise DevOps insuffisante</p>
+        <div class="two-column">
+            <div class="column">
+                <strong style="color: #38bdf8;">Avantages:</strong>
+                <div style="font-size: 0.9rem; color: #cbd5e1; margin-top: 0.5rem;">
+                    <p>✓ Déploiement rapide (2-3 sem)</p>
+                    <p>✓ Support AWS 24/7</p>
+                    <p>✓ mAP=85% (acceptable)</p>
+                </div>
+            </div>
+            <div class="column">
+                <strong style="color: #dc2626;">Limitations:</strong>
+                <div style="font-size: 0.9rem; color: #cbd5e1; margin-top: 0.5rem;">
+                    <p>⚠️ Latence 200-300ms</p>
+                    <p>⚠️ Dépendance Internet</p>
+                    <p>⚠️ Coûts variables</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 14: Métriques Performance -->
+    <section class="slide content light-section">
+        <h2>Métriques de Test & Amélioration</h2>
+        <div class="content-list">
+            <div class="list-item"><strong>mAP@0.50:</strong> Average Precision à IoU threshold 0.50 (standard rapide)</div>
+            <div class="list-item"><strong>mAP@0.50:0.95:</strong> Plus strict, détecte erreurs localization</div>
+            <div class="list-item"><strong>Précision/Rappel:</strong> TP/(TP+FP) vs TP/(TP+FN)</div>
+            <div class="list-item"><strong>F1 Score:</strong> Harmonic mean (équilibre precision/recall)</div>
+            <div class="list-item"><strong>Latence:</strong> FPS (frames/sec) - target: 15+ FPS (SafeFactory)</div>
+        </div>
+        <div style="background-color: #1e293b; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+            <strong>Anti-Overfitting :</strong> Mosaic augmentation, MixUp, L2 regularization, early stopping (patience=20)
+        </div>
+    </section>
+
+    <!-- SLIDE 15: Ressources -->
+    <section class="slide content dark-bg">
+        <h2>Ressources Nécessaires (Solution GOLD)</h2>
+        <div class="two-column" style="margin-top: 1rem;">
+            <div>
+                <div style="color: #38bdf8; font-weight: bold;">Hardware:</div>
+                <div class="metric" style="margin-top: 0.5rem;">
+                    <div class="metric-label">NVIDIA Jetson Xavier AGX</div>
+                    <div class="metric-value" style="font-size: 1.2rem;">€2,000</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Infrastructure réseau</div>
+                    <div class="metric-value" style="font-size: 1.2rem;">€1,000</div>
+                </div>
+                <p style="color: #10b981; margin-top: 1rem; font-weight: bold;">TOTAL: €3,000</p>
+            </div>
+            <div>
+                <div style="color: #38bdf8; font-weight: bold;">Logiciels (Annuel):</div>
+                <div class="metric" style="margin-top: 0.5rem;">
+                    <div class="metric-label">Développement</div>
+                    <div class="metric-value" style="font-size: 1.2rem;">€13-25k</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">Exploitation</div>
+                    <div class="metric-value" style="font-size: 1.2rem;">€4.5k/an</div>
+                </div>
+                <p style="color: #10b981; margin-top: 1rem; font-weight: bold;">Breakeven: 2 ans vs AWS</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 16: Perspectives Futures -->
+    <section class="slide content">
+        <h2>Perspectives Futures (2027-2030)</h2>
+        <div class="content-list" style="font-size: 1rem;">
+            <div class="list-item"><strong>Multi-Camera Tracking:</strong> Associer worker across zones (privacy-preserving)</div>
+            <div class="list-item"><strong>Action Recognition:</strong> Comprendre tâche (escalade = always helmet)</div>
+            <div class="list-item"><strong>Thermal Integration:</strong> Infrared + YOLOv10 fusion (low-light guarantee)</div>
+            <div class="list-item"><strong>Wearable Sensors:</strong> Fall detection + AI confirmation</div>
+            <div class="list-item"><strong>Federated Learning:</strong> Model updates WITHOUT data leaving site</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 17: Plan de Convaincre -->
+    <section class="slide content light-section">
+        <h2>Plan de Convaincre les Parties Prenantes</h2>
+        <div class="content-list" style="font-size: 1.05rem;">
+            <div class="list-item"><span class="highlight">1. Direction :</span> "Zéro Accident = moins coûts assurance + responsabilité réduite"</div>
+            <div class="list-item"><span class="highlight">2. Supervisors :</span> Démo live "System voit detection, pas identité"</div>
+            <div class="list-item"><span class="highlight">3. Syndicalistes :</span> Garantie juridique "GDPR audit externe, policy transparente"</div>
+            <div class="list-item"><span class="highlight">4. IT Department :</span> Pilot 1 mois zone test (proof of concept local)</div>
+            <div class="list-item"><span class="highlight">5. Tous :</span> Itération feedback workers → ajustements config</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 18: Synthèse Finale -->
+    <section class="slide title dark-bg">
+        <h2 style="margin-bottom: 2rem;">Synthèse & Recommandation</h2>
+        <div style="text-align: left; font-size: 1.1rem; color: #cbd5e1;">
+            <div class="success-box" style="margin-bottom: 1rem;">
+                <strong>✅ SOLUTION GOLD: YOLOv10 + Edge</strong><br>
+                98.4% mAP | 15ms latency | Privacy GDPR | €3k capital
+            </div>
+            <div style="background-color: #1e293b; padding: 1rem; border-radius: 4px;">
+                <strong>⚠️ SOLUTION REPLI: AWS Rekognition</strong><br>
+                85% mAP | Support commercial | Coûts variables | Dépend Internet
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
