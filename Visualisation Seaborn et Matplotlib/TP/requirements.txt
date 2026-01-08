@@ -1,0 +1,7 @@
+requests 
+gtfs-realtime-bindings
+matplotlib
+seaborn
+numpy
+ipykernel
+ipywidgets
