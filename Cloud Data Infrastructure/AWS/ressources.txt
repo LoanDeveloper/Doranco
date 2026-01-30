@@ -1,0 +1,37 @@
+
+Infra:
+https://docs.aws.amazon.com/fr_fr/whitepapers/latest/availability-and-beyond-improving-resilience/availability-with-redundancy.html
+https://aws.amazon.com/fr/compliance/shared-responsibility-model/
+
+
+IAM
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html
+https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/access_policies.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html
+
+
+AWS S3
+https://docs.aws.amazon.com/s3/?icmpid=docs_homepage_featuredsvcs
+https://medium.com/@ayogun/how-much-durable-aws-s3-is-a3b2ce789c29
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html
+https://aws.plainenglish.io/storing-retrieving-implementing-objects-using-aws-s3-e2b206e98623
+
+
+Groupes de sécurité :
+https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/vpc-security-groups.html
+https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/security-group-rules.html
+https://docs.aws.amazon.com/fr_fr/vpc/latest/userguide/working-with-security-group-rules.html
+
+
+RDS:
+https://docs.aws.amazon.com/rds/?icmpid=docs_homepage_featuredsvcs
+https://aws.amazon.com/fr/blogs/database/implementing-a-disaster-recovery-strategy-with-amazon-rds/
+https://docs.aws.amazon.com/prescriptive-guidance/latest/dr-standard-edition-amazon-rds/sites-strategies.html
+
+RDS avec un Learner Lab :
+https://www.youtube.com/watch?v=4t2XsU_1r5k
+
+
+AWS Glue
+https://docs.aws.amazon.com/fr_fr/glue/latest/dg/components-key-concepts.html
