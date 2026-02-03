@@ -1,0 +1,20 @@
+[
+	{
+	  "warehouse_code": "LIL",
+	  "warehouse_name": "Lille",
+	  "region": "Hauts-de-France",
+	  "capacity": 5000
+	},
+        {
+          "warehouse_code": "RBX",
+          "warehouse_name": "Roubaix",
+          "region": "Hauts-de-France",
+          "capacity": 3000
+        },
+        {
+          "warehouse_code": "NTS",
+          "warehouse_name": "Nantes",
+          "region": "Loire-Atlantique",
+          "capacity": 10000
+        }
+]

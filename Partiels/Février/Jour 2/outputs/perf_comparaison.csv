@@ -1,0 +1,3 @@
+method,rows,avg_time_s,speedup
+baseline_object,200000,0.015876265649967535,1.0
+optimized_category,200000,0.008565660050044244,1.8534783726194608
